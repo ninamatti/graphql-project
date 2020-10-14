@@ -67,8 +67,9 @@ const typeDefs = gql`
     Pokemons: [Pokemon]
     Pokemon(name: String, id: String): Pokemon
     Types: [String]
-    FastAttacks: fastAttacks
-    Attacks: Attacks
+    getAttacksByType(type: String): [fastAttacks]
+    getPokemonByType(typeName: String): [Pokemon]
+    getPokemonByAttack(attackName: String): [Pokemon]
   }
 `;
 
