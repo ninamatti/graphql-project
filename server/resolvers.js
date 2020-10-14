@@ -1,4 +1,5 @@
 // The data below is mocked.
+const { pokemon } = require("./data");
 const data = require("./data");
 
 module.exports = {
@@ -16,11 +17,36 @@ module.exports = {
     Types: (parent, args) => {
       return data.types;
     },
-    FastAttacks: (parent, args) => {
-      return data.attacks.fast;
+    getAttacksByType: (parent, args) => {
+      if (args.type === "fast") {
+        return data.attacks.fast;
+      } else {
+        return data.attacks.special;
+      }
     },
-    Attacks: (parent, args) => {
-      return data.attacks;
+    getPokemonByType: (parent, args) => {
+      return data.pokemon.filter((pokemon) =>
+        pokemon.types.includes(args.typeName)
+      );
+    },
+    getPokemonByAttack: (parent, args) => {
+      console.log("args: ", args.attackName);
+      let result = [];
+      for (let pokemon of data.pokemon) {
+        if (pokemon.attacks !== undefined) {
+          for (let attack of pokemon.attacks.fast) {
+            if (attack.name === args.attackName) {
+              result.push(pokemon);
+            }
+          }
+          for (let attack of pokemon.attacks.special) {
+            if (attack.name === args.attackName) {
+              result.push(pokemon);
+            }
+          }
+        }
+      }
+      return result;
     },
   },
 };
