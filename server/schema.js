@@ -63,6 +63,65 @@ const typeDefs = gql`
     attacks: Attacks
   }
 
+  input WeightInput {
+    minimum: String
+    maximum: String
+  }
+
+  input HeightInput {
+    minimum: String
+    maximum: String
+  }
+
+  input PrevEvolutionsInput {
+    id: Int
+    name: String
+  }
+
+  input evolRequirementsInput {
+    amount: Int
+    name: String
+  }
+
+  input EvolutionsInput {
+    id: Int
+    name: String
+  }
+
+  input fastAttacksInput {
+    name: String
+    type: String
+    damage: Int
+  }
+
+  input specialAttacksInput {
+    name: String
+    type: String
+    damage: Int
+  }
+
+  input AttacksInput {
+    fast: [fastAttacksInput]
+    special: [specialAttacksInput]
+  }
+
+  input PokemonInput {
+    id: String!
+    name: String!
+    classification: String
+    types: [String]
+    resistant: [String]
+    weight: WeightInput
+    height: HeightInput
+    fleeRate: Float
+    previousEvolutions: [PrevEvolutionsInput]
+    evolutionRequirements: evolRequirementsInput
+    evolutions: [EvolutionsInput]
+    maxCP: Int
+    maxHP: Int
+    attacks: AttacksInput
+  }
+
   type Query {
     Pokemons: [Pokemon]
     Pokemon(name: String, id: String): Pokemon
@@ -70,6 +129,10 @@ const typeDefs = gql`
     getAttacksByType(type: String): [fastAttacks]
     getPokemonByType(typeName: String): [Pokemon]
     getPokemonByAttack(attackName: String): [Pokemon]
+  }
+
+  type Mutation {
+    addPokemon(input: PokemonInput): String
   }
 `;
 

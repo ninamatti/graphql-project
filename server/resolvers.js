@@ -49,4 +49,11 @@ module.exports = {
       return result;
     },
   },
+  Mutation: {
+    addPokemon: (parent, args) => {
+      console.log("args: ", args);
+      data.pokemon.push(args.input);
+      return `Successfully added ${args.input.name}`;
+    },
+  },
 };
